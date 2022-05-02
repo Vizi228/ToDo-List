@@ -1,4 +1,5 @@
 import axios from "axios";
+import { deleteTaskItem } from './tasksActions'
 export const addListItem = (action) => ({
     type: 'getListItem',
     payload: action,
@@ -30,10 +31,10 @@ export const changeListsItem = (obj, lists) => (dispatch) => {
     axios.put(`https://61252c323c91fb0017e729af.mockapi.io/Lists/${changeId}`, obj).then(data => dispatch(changeItemToLists(data.data)))
 }
 export const deleteListsItem = (id, tasks) => (dispatch) => {
-    let taskId = tasks.filter(item => item.UID === id).map(item => item.id)
+    let taskId = tasks.filter(item => item.UID === id)
     axios.delete(`https://61252c323c91fb0017e729af.mockapi.io/Lists/${id}`).then(data => dispatch(deleteItemToLists(id)))
     taskId.forEach(element => {
-        axios.delete(`https://61252c323c91fb0017e729af.mockapi.io/tasks/${element}`)
+        axios.delete(`https://61252c323c91fb0017e729af.mockapi.io/tasks/${element.id}`).then(data => dispatch(deleteTaskItem(data.data.id)))
     });
 }
 

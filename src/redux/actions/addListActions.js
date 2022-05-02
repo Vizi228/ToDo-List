@@ -4,7 +4,7 @@ export const addItemToAddList = (action) => ({
     payload: action,
 });
 export const getAddListItems = () => (dispatch) => {
-    axios.get('http://localhost:3001/colors').then(data => {
+    axios.get('https://61252c323c91fb0017e729af.mockapi.io/Colors').then(data => {
         dispatch(addItemToAddList(data.data));
     });
 
